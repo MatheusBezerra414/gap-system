@@ -19,8 +19,10 @@ data class User(
     var rule: Rule?,
     @Column(nullable = false)
     var phone: String?,
-    @Column(nullable = true)
     @OneToMany(cascade = [CascadeType.ALL],fetch = FetchType.EAGER, orphanRemoval = true)
     @OrderBy("date_created ASC")
-    var activityReport: List<UserActivityReport>? = null
-)
+    var activityReport: List<UserActivityReport>? = null,
+    @OneToMany(cascade = [CascadeType.ALL],fetch = FetchType.LAZY, orphanRemoval = true)
+    @OrderBy("date_project ASC")
+    val projectMonitoring: List<ProjectMonitoring>? = null
+):Serializable
