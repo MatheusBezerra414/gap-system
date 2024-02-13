@@ -13,7 +13,16 @@ class LawProjectService(
     private val lawProjectRepository: LawProjectRepository,
     private val projectAuthorRepository: ProjectAuthorRepository
 ): ILawProjectService {
-    override fun save(lawProject: LawProject): LawProject = this.lawProjectRepository.save(lawProject)
+    override fun save(lawProject: LawProject): LawProject {
+        val author = lawProject.projectAuthor.id?.let {
+            this.projectAuthorRepository.findById(it).orElseThrow {
+                BusinessException("Author with ${lawProject.projectAuthor.id} not found")
+            }
+        }
+        return if (author != null) {
+            this.lawProjectRepository.save(lawProject)
+        } else throw BusinessException("Author ID mismatch: expected ${lawProject.projectAuthor.id}, but not found Project Author Id")
+    }
 
     override fun findById(id: Long): Optional<LawProject> = this.lawProjectRepository.findById(id)
 

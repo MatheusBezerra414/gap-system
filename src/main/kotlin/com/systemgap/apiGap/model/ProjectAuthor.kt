@@ -8,7 +8,7 @@ data class ProjectAuthor(
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         @Column(name="author_id")
-        val id: Long,
+        val id: Long? = null,
 
         @Column(nullable = false)
         val name: String,

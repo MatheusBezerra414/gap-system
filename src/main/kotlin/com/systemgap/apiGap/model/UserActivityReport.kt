@@ -9,7 +9,7 @@ import java.util.*
 data class UserActivityReport(
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        val id: Long,
+        val id: Long? = null,
 
         @ManyToOne
         @JoinColumn(name = "user_id")

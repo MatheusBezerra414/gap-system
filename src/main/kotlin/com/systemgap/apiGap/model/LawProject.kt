@@ -8,7 +8,7 @@ data class LawProject(
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         @Column(name="project_id")
-        val id: String,
+        val id: Long? = null,
         @Column(nullable = false)
         val number: Int,
 
